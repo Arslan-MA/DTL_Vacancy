@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="text-align: center;">
+
+    <div style="width: 800px;
+                margin: auto;
+                padding: 20px;
+                margin-top: 50px;
+                font-size: 20px;
+                border: 3px solid;">
+        <p><b>Company:</b><br>{{ vacancy.company }} </p>
+        <p><b>Vacancy:</b><br>{{ vacancy.v_title }}</p>
+        <p><b>Requirements:</b><br>{{ vacancy.requirements }}</p>
+        <p><b>Salary:</b><br>{{ vacancy.salary }}$</p>
+        <p><b>Description:</b><br> {{ vacancy.description }}</p>
+        <a href="{% url 'class' %}"><button type="button" style="margin: auto;
+                                                                font-size: 25px;">Back</button></a>
+    </div>
+
+</body>
+</html>

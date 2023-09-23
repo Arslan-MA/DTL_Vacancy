@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacancy List</title>
+</head>
+<body style="text-align: center;">
+
+    <div style="width: 300px;
+                margin: auto;
+                padding: 20px;
+                margin-top: 50px;
+                font-size: 16px;
+                text-align: center;">
+        <h1>Search for vacancies</h1>
+        <form action="" method="get">
+            <input name="q" type="text" style="font-size: 16px;">
+            <button type="submit" style="font-size: 16px;">Search</button>
+        </form>
+    </div>
+
+    <div style="width: 300px;
+                margin: auto;
+                padding: 20px;
+                margin-top: 50px;
+                font-size: 16px;">
+
+        {% if page_obj %}
+            {% for vacancy in page_obj %}
+                <div style="border: 3px solid;
+                            padding: 10px
+                            margin-top: 10px;">
+                    <p>{{ vacancy.company }} </p>
+                    <p>{{ vacancy.v_title }}</p>
+                    <p>{{ vacancy.salary }}$</p>
+                    <a href="{% url 'detail' vacancy.pk %}"><button style="margin: 10px;
+                                                                           font-size: 17px;">More details</button></a>
+                </div>
+                <br><br>
+            {% endfor %}
+        {% else %}
+            <p>Вакансия не найдена</p>
+        {% endif %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    {% for p_num in paginator.page_range %}
+                        {% if p_num == page_obj.number %}
+                            <span>
+                                {{ p_num }}
+                            </span>
+                        {% elif p_num >= page_obj.number|add:-2 and p_num <= page_obj.number|add:2 %}
+                            <span>
+                                <a href="?page={{ p_num }}">{{ p_num }}</a>
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+</html>
